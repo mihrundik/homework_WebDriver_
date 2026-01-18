@@ -1,4 +1,3 @@
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -19,6 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TreningTests {
 
     WebDriver driver;
+    private final String TRAINING_URL = "https://otus.home.kartushin.su/training.html";
+
 
     @BeforeAll
     public static void init() {
@@ -38,6 +39,7 @@ public class TreningTests {
     }
 
 
+
 //        Часть 1: Headless режим браузера Chrome
 //        1. Запустите Google Chrome в **headless** режиме.
 //        2. Перейдите на вышеуказанный ресурс.
@@ -49,7 +51,7 @@ public class TreningTests {
         options.addArguments("headless");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.get("https://otus.home.kartushin.su/training.html");
+        driver.get(TRAINING_URL);
 
         var testInput = driver.findElement(By.xpath("//*[@id=\"textInput\"]"));
         testInput.sendKeys("ОТУС" + Keys.ENTER);
@@ -68,7 +70,7 @@ public class TreningTests {
         options.addArguments("--kiosk");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.get("https://otus.home.kartushin.su/training.html");
+        driver.get(TRAINING_URL);
 
         var modalWindowBtn = driver.findElement(By.xpath("//*[@id=\"openModalBtn\"]"));
         modalWindowBtn.click();
@@ -91,7 +93,7 @@ public class TreningTests {
         options.addArguments("--start-fullscreen");
         driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.get("https://otus.home.kartushin.su/training.html");
+        driver.get(TRAINING_URL);
 
         var testName = driver.findElement(By.xpath("//*[@id=\"name\"]"));
         var name = "Mariya";
