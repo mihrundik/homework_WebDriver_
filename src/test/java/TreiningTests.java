@@ -43,6 +43,15 @@ public class TreiningTests {
         log.info("Конец тестирования\n");
     }
 
+
+    public void chromeOptions(String args) {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(args);
+        driver = new ChromeDriver(options);
+        driver.get(PAGE);
+        weitPage();
+    }
+
     // запись результатов прохождения тестов в логи
     public void statusTest(boolean result, String message) {
         if (result) {
@@ -65,11 +74,7 @@ public class TreiningTests {
 //        4. Проверьте, что отображенный текст соответствует введённому.¬
     @Test
     public void sendText() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
-        driver = new ChromeDriver(options);
-        driver.get(PAGE);
-        weitPage();
+        chromeOptions("--headless=new");
 
         var testInput = driver.findElement(By.xpath("//*[@id=\"textInput\"]"));
         testInput.sendKeys("ОТУС" + Keys.ENTER);
@@ -87,11 +92,7 @@ public class TreiningTests {
 //        4. Удостоверьтесь, что модальное окно успешно открыто.
     @Test
     public void openModalWindow() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--kiosk");
-        driver = new ChromeDriver(options);
-        driver.get(PAGE);
-        weitPage();
+        chromeOptions("--kiosk");
 
         var modalWindowBtn = driver.findElement(By.xpath("//*[@id=\"openModalBtn\"]"));
         modalWindowBtn.click();
@@ -113,11 +114,7 @@ public class TreiningTests {
 //            > _"Форма отправлена с именем: {Имя} и e-mail: {E-mail}"_
     @Test
     public void sendForm() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--start-fullscreen");
-        driver = new ChromeDriver(options);
-        driver.get(PAGE);
-        weitPage();
+        chromeOptions("--start-fullscreen");
 
         var testName = driver.findElement(By.xpath("//*[@id=\"name\"]"));
         var name = "Mariya";
