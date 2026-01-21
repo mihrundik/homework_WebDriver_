@@ -1,34 +1,34 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-public class TreningTests {
-
+public class TreiningTests {
     WebDriver driver;
-    private final String TRAINING_URL = "https://otus.home.kartushin.su/training.html";
-
+    private static final Logger log = LogManager.getLogger(TreiningTests.class);
+    private String PAGE = "https://otus.home.kartushin.su/training.html";
+    Integer SECONDS = 5;
 
     @BeforeAll
     public static void init() {
         WebDriverManager.chromedriver().setup();
+        log.info("Начало тестирования");
     }
 
     @BeforeEach
-    public void driverStarter() {
-//        log.fatal("Браузер запущен!!!!");
+    public void driverStarter(TestInfo testInfo) {
+        log.fatal(format("Запуск теста: %s", testInfo.getDisplayName()));
     }
 
     @AfterEach
@@ -38,6 +38,24 @@ public class TreningTests {
         }
     }
 
+    @AfterAll
+    public static void endTests() {
+        log.info("Конец тестирования\n");
+    }
+
+    // запись результатов прохождения тестов в логи
+    public void statusTest(boolean result, String message) {
+        if (result) {
+            log.info(message + ": Успешно пройден.");
+        } else {
+            log.error(message + ": Ошибка!");
+        }
+    }
+
+    // явное ожидание
+    public void weitPage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(SECONDS));
+    }
 
 
 //        Часть 1: Headless режим браузера Chrome
@@ -48,14 +66,17 @@ public class TreningTests {
     @Test
     public void sendText() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("headless");
+        options.addArguments("--headless=new");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.get(TRAINING_URL);
+        driver.get(PAGE);
+        weitPage();
 
         var testInput = driver.findElement(By.xpath("//*[@id=\"textInput\"]"));
         testInput.sendKeys("ОТУС" + Keys.ENTER);
         assertEquals("ОТУС", testInput.getAttribute("value"));
+
+        boolean isCorrect = "ОТУС".equals(testInput.getAttribute("value"));
+        statusTest(isCorrect, "Проверка заполнения поля 'sendText'");
     }
 
 
@@ -69,8 +90,8 @@ public class TreningTests {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--kiosk");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.get(TRAINING_URL);
+        driver.get(PAGE);
+        weitPage();
 
         var modalWindowBtn = driver.findElement(By.xpath("//*[@id=\"openModalBtn\"]"));
         modalWindowBtn.click();
@@ -78,6 +99,9 @@ public class TreningTests {
         assertEquals("Это модальное окно", textModal);
         var closeModal = driver.findElement(By.xpath("//*[@id=\"closeModal\"]"));
         closeModal.click();
+
+        boolean isCorrect = "Это модальное окно".equals(textModal);
+        statusTest(isCorrect, "Проверка открытия модального окна 'openModalWindow'");
     }
 
 
@@ -92,8 +116,8 @@ public class TreningTests {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--start-fullscreen");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
-        driver.get(TRAINING_URL);
+        driver.get(PAGE);
+        weitPage();
 
         var testName = driver.findElement(By.xpath("//*[@id=\"name\"]"));
         var name = "Mariya";
@@ -106,9 +130,14 @@ public class TreningTests {
         var testBtn = driver.findElement(By.xpath("//*[@id=\"sampleForm\"]/button"));
         testBtn.click();
 
-        var testMassage = driver.findElement(By.xpath("//*[@id=\"messageBox\"]")).getText();
+        String testMassage = driver.findElement(By.xpath("//*[@id=\"messageBox\"]")).getText();
         String temp = format("Форма отправлена с именем: %s и email: %s", name, email);
         assertEquals(temp, testMassage);
+
+        boolean isCorrect = temp.equals(testMassage);
+        statusTest(isCorrect, "Проверка отправки формы 'sendForm'");
     }
 
 }
+
+

@@ -2,6 +2,7 @@
 out/
 .idea/
 target/
+logs/
 
 ### Mac OS ###
 .DS_Store.idea/
