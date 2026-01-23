@@ -12,57 +12,61 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <selenium-java.version>4.40.0</selenium-java.version>
+        <log4j-slf4j-impl.version>2.25.3</log4j-slf4j-impl.version>
+        <webdrivermanager.version>6.1.0</webdrivermanager.version>
+        <junit-jupiter-api.version>5.11.0</junit-jupiter-api.version>
+        <junit.version>RELEASE</junit.version>
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.40.0</version>
+            <version>${selenium-java.version}</version>
         </dependency>
 
         <!-- исключение предупреждения SLF4J с перенаправлением в определенную библиотеку логирования -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.25.3</version>
+            <version>${log4j-slf4j-impl.version}</version>
         </dependency>
 
         <!-- логирование с использованием Log4j2 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.25.3</version>
+            <version>${log4j-slf4j-impl.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.25.3</version>
+            <version>${log4j-slf4j-impl.version}</version>
         </dependency>
 
         <!-- WebDriver Manager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>6.1.0</version>
+            <version>${webdrivermanager.version}</version>
         </dependency>
 
-        <!-- JUnit Jupiter -->
+        <!-- JUnit Jupiter - модульное тестирование -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.11.0</version>
-<!--        когда используется - в тестах             -->
+            <version>${junit-jupiter-api.version}</version>
+        <!-- когда используется - в тестах -->
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>RELEASE</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 </project>
