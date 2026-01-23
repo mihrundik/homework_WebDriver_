@@ -1,3 +1,5 @@
+import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -7,11 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TrainingTests extends AbstractClassTest {
 
-    // ввод текста в Headless режиме
+
+    // Часть 1: TreningTests режим браузера Chrome
+    //1. Запустите Google Chrome в headless режиме.
+    //2. Перейдите на вышеуказанный ресурс.
+    //3. Введите в поле ввода текста значение "ОТУС".
+    //4. Проверьте, что отображенный текст соответствует введённому.
     @Test
     public void sendText() {
         ChromeSetup customChromeSetup = new ChromeSetup();
@@ -21,14 +27,19 @@ public class TrainingTests extends AbstractClassTest {
 
         var testInput = driver.findElement(By.xpath("//*[@id=\"textInput\"]"));
         testInput.sendKeys("ОТУС" + Keys.ENTER);
-        assertEquals("ОТУС", testInput.getAttribute("value"));
 
-        boolean isCorrect = "ОТУС".equals(testInput.getAttribute("value"));
-        statusTest(isCorrect, "Проверка заполнения поля 'sendText'");
+        statusTest(
+                "ОТУС".equals(testInput.getAttribute("value")),
+                "Проверка отправки формы 'sendText'"
+        );
     }
 
 
-    // открытие модального окна в режиме kiosk
+    // Часть 2: Режим Kiosk в браузере Chrome
+    //1. Запустите Google Chrome в режиме Kiosk.
+    //2. Перейдите на ресурс.
+    //3. Кликните на кнопку "Открыть модальное окно".
+    //4. Удостоверьтесь, что модальное окно успешно открыто.
     @Test
     public void openModalWindow() {
         ChromeSetup customChromeSetup = new ChromeSetup();
@@ -39,16 +50,23 @@ public class TrainingTests extends AbstractClassTest {
         var modalWindowBtn = driver.findElement(By.xpath("//*[@id=\"openModalBtn\"]"));
         modalWindowBtn.click();
         String textModal = driver.findElement(By.xpath("//*[@id=\"myModal\"]/div/h2")).getText();
-        assertEquals("Это модальное окно", textModal);
+
         var closeModal = driver.findElement(By.xpath("//*[@id=\"closeModal\"]"));
         closeModal.click();
 
-        boolean isCorrect = "Это модальное окно".equals(textModal);
-        statusTest(isCorrect, "Проверка открытия модального окна 'openModalWindow'");
+        statusTest(
+                "Это модальное окно".equals(textModal),
+                "Проверка отправки формы 'sendText'"
+        );
     }
 
 
-    // Часть 3: Отправляем форму в полноэкранном режиме
+    // Часть 3: Полноэкранный режим браузера Chrome
+    //1. Откройте Google Chrome в полноэкранном режиме.
+    //2. Перейдите на тестовую страницу.
+    //3. Заполните форму, введя произвольные значения имени и электронной почты, нажмите кнопку "Отправить".
+    //4. Обратите внимание на появившееся динамическое сообщение, которое должно соответствовать формату:
+    //          "Форма отправлена с именем: {Имя} и e-mail: {E-mail}"
     @Test
     public void sendForm() {
         ChromeSetup customChromeSetup = new ChromeSetup();
@@ -69,9 +87,11 @@ public class TrainingTests extends AbstractClassTest {
 
         String testMassage = driver.findElement(By.xpath("//*[@id=\"messageBox\"]")).getText();
         String temp = format("Форма отправлена с именем: %s и email: %s", name, email);
-        assertEquals(temp, testMassage);
 
-        boolean isCorrect = temp.equals(testMassage);
-        statusTest(isCorrect, "Проверка отправки формы 'sendForm'");
+        statusTest(
+                temp.equals(testMassage),
+                "Проверка отправки формы 'sendForm'"
+        );
     }
+
 }

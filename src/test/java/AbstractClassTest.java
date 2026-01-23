@@ -8,15 +8,15 @@ import static java.lang.String.format;
 
 public abstract class AbstractClassTest {
 
-    protected WebDriver basicDriver;
+    protected WebDriver basicDriver;        // для принимать копию из тестов
     static final Logger log = LogManager.getLogger(AbstractClassTest.class);
 
     public void statusTest(boolean isCorrect, String message) {
 
-        if (isCorrect) {
-            log.info("{}: Успешно пройден.", message);
-        } else {
+        if (!isCorrect) {
             log.error("{}: Ошибка!", message);
+        } else {
+            log.info("{}: Успешно пройден.", message);
         }
     }
 
