@@ -4,7 +4,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
 public class ChromeSetup extends AbstractClassTest {
 
@@ -15,11 +14,13 @@ public class ChromeSetup extends AbstractClassTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(SECONDS));
     }
 
-    public WebDriver setup(List<String> arguments) {
+    public WebDriver setup(String arg) {
         ChromeOptions options = new ChromeOptions();
-        for (String args : arguments) {
-            options.addArguments(args);
-        }
+        String[] arguments = arg.split(" ");
+        for (String args : arguments)
+            if (!args.isEmpty()) {
+                options.addArguments(arguments);
+            }
         ChromeDriver driver = new ChromeDriver(options);
         driver.get(PAGE);
         weitPage(driver);

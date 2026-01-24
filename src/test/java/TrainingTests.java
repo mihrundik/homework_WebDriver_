@@ -1,17 +1,11 @@
-import org.junit.Ignore;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static java.lang.String.format;
 
 public class TrainingTests extends AbstractClassTest {
-
 
     // Часть 1: TreningTests режим браузера Chrome
     //1. Запустите Google Chrome в headless режиме.
@@ -21,7 +15,7 @@ public class TrainingTests extends AbstractClassTest {
     @Test
     public void sendText() {
         ChromeSetup customChromeSetup = new ChromeSetup();
-        List<String> options = Arrays.asList("--headless=new");
+        String options = "--headless=new";
         WebDriver driver = customChromeSetup.setup(options);
         basicDriver = driver;        // передача в базовый класс созданного драйвера для очистки
 
@@ -34,7 +28,6 @@ public class TrainingTests extends AbstractClassTest {
         );
     }
 
-
     // Часть 2: Режим Kiosk в браузере Chrome
     //1. Запустите Google Chrome в режиме Kiosk.
     //2. Перейдите на ресурс.
@@ -43,7 +36,7 @@ public class TrainingTests extends AbstractClassTest {
     @Test
     public void openModalWindow() {
         ChromeSetup customChromeSetup = new ChromeSetup();
-        List<String> options = Arrays.asList("--kiosk");
+        String options = "--kiosk";
         WebDriver driver = customChromeSetup.setup(options);
         basicDriver = driver;
 
@@ -60,7 +53,6 @@ public class TrainingTests extends AbstractClassTest {
         );
     }
 
-
     // Часть 3: Полноэкранный режим браузера Chrome
     //1. Откройте Google Chrome в полноэкранном режиме.
     //2. Перейдите на тестовую страницу.
@@ -70,7 +62,7 @@ public class TrainingTests extends AbstractClassTest {
     @Test
     public void sendForm() {
         ChromeSetup customChromeSetup = new ChromeSetup();
-        List<String> options = Arrays.asList("--start-fullscreen");
+        String options = "--start-fullscreen";
         WebDriver driver = customChromeSetup.setup(options);
         basicDriver = driver;
 
