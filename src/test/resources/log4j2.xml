@@ -13,6 +13,8 @@
     </Appenders>
 <!--    логгеры приложения-->
     <Loggers>
+<!--    Подавляем вывод сообщений от WebDriverManager -->
+        <Logger name="io.github.bonigarcia.wdm" level="OFF"/>
 <!--        логгирование с детализацией DEBUG-->
         <Logger name="com.example.package" level="DEBUG"/>
 <!--        Root - корневой логгер с уровнем детализации INFO и выше-->
