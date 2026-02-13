@@ -20,7 +20,7 @@ public class TrainingTests {
         @Override
         public ChromeOptions createChromeOptions() {
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless=new");
+            options.addArguments("--headless");
             return options;
         }
 
@@ -32,7 +32,7 @@ public class TrainingTests {
             boolean result = page.checkInputValue("ОТУС");
             statusTest(result, "Проверка отправки текста в форму 'sendText'");
 
-            assertTrue(result, "Check correctness of input data");
+            assertTrue(result, "Проверка корректности вложения");
         }
     }
 
@@ -60,7 +60,7 @@ public class TrainingTests {
             boolean result = "Это модальное окно".equals(page.getModalTitle());
             statusTest(result, "Проверка открытия модального окна 'openModalWindow'");
 
-            assertEquals("Это модальное окно", page.getModalTitle(), "Modal window title");
+            assertEquals("Это модальное окно", page.getModalTitle(), "Проверка модального окна");
             page.closeModal();
         }
     }
@@ -85,12 +85,12 @@ public class TrainingTests {
         @Test
         @DisplayName("Заполнение и отправка формы")
         void sendForm() {
-            page.fillForm("Марья", "mail@mail.ru");
+            page.fillForm("Мария", "mail@mail.ru");
             page.submitForm();
             String resultMessage = page.readSubmitMessage();
 
             boolean checkName = resultMessage.contains("Форма отправлена с именем:");
-            boolean checkMariya = resultMessage.contains("Марья");
+            boolean checkMariya = resultMessage.contains("Мария");
             boolean checkEmail = resultMessage.contains("email:");
             boolean checkMail = resultMessage.contains("mail@mail.ru");
 
@@ -98,10 +98,10 @@ public class TrainingTests {
                     "Проверка отправки формы с именем и электронной почтой 'sendForm'");
 
             assertAll(
-                    () -> assertTrue(resultMessage.contains("Форма отправлена с именем:"), "Form sent with name"),
-                    () -> assertTrue(resultMessage.contains("Марья"), "Name present in message"),
-                    () -> assertTrue(resultMessage.contains("email:"), "Email mentioned in message"),
-                    () -> assertTrue(resultMessage.contains("mail@mail.ru"), "Correct email passed in the message")
+                    () -> assertTrue(resultMessage.contains("Форма отправлена с именем:"), "Форма отправлена с именем"),
+                    () -> assertTrue(resultMessage.contains("Мария"), "Имя присутствует в форме"),
+                    () -> assertTrue(resultMessage.contains("email:"), "Email присутствует в форме"),
+                    () -> assertTrue(resultMessage.contains("mail@mail.ru"), "Email передан корректный")
             );
         }
     }
