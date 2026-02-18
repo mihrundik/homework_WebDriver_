@@ -70,7 +70,7 @@
     </dependencies>
 
     <build>
-        <!-- плагин для автоматической сборки (в данном случае для файлов любого уровня вложенности с названием *Tests.java) -->
+        <!-- плагин для автоматической сборки (в данном случае для файлов любого уровня вложенности с названием *Test.java в алфавитном порядке) -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,7 +78,8 @@
                 <version>3.5.2</version>
                 <configuration>
                     <includes>
-                        <include>**/*Tests.java</include>
+                        <!--<runOrder>alphabetical</runOrder>-->
+                        <include>**/*Test.java</include>
                     </includes>
                 </configuration>
             </plugin>

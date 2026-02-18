@@ -1,25 +1,25 @@
 package pages;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Properties;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-abstract class AbstractClassTest {
+public abstract class AbstractClassTest {
 
-    static final Logger log = LogManager.getLogger(AbstractClassTest.class);
+    static final Logger log = LogManager.getLogger(String.valueOf(AbstractClassTest.class));
     protected static WebDriver driver;
     protected static ObjectPage page;
+    private static final String URL = EnvConfig.getUrl();
 
     protected abstract ChromeOptions createChromeOptions();
-
 
     // логирование успешности/неуспешности прохождения теста
     public void statusTest(boolean isCorrect, String message) {
@@ -41,15 +41,9 @@ abstract class AbstractClassTest {
     public void driverStart(TestInfo testInfo) throws IOException {
         log.info("Запуск теста: {}", testInfo.getDisplayName());
 
-        Properties url = new Properties();
-        try (FileInputStream fis = new FileInputStream("src/test/resources/url.properties")) {
-            url.load(fis); // читаем файл свойств
-        }
-        String trainingUrl = url.getProperty("training.url");
-
         ChromeOptions options = createChromeOptions();  // опции браузера исходя из реализации конкретного теста
         driver = new ChromeDriver(options);
-        driver.get(trainingUrl);
+        driver.get(URL);
         page = new ObjectPage(driver);
     }
 
