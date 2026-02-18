@@ -11,7 +11,7 @@ import java.time.Duration;
 
 public class ObjectPage {
 
-    private final WebDriverWait wait;
+    public final WebDriverWait wait;
 
     // используемые в тестах элементы страницы
     @FindBy(id = "textInput")
@@ -40,7 +40,7 @@ public class ObjectPage {
 
     // инициализируем класс и связываем объекты элементов на странице
     public ObjectPage(WebDriver driver) {
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(1));   // оставила ождание на случай плохого интернета
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         PageFactory.initElements(driver, this);
     }
 
