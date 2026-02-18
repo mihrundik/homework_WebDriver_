@@ -8,15 +8,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Properties;
-import java.io.FileInputStream;
 import java.io.IOException;
 
 public abstract class AbstractClassTest {
 
     static final Logger log = LogManager.getLogger(String.valueOf(AbstractClassTest.class));
     protected static WebDriver driver;
-    protected static ObjectPage page;
+    protected ObjectPage page;
     private static final String URL = EnvConfig.getUrl();
 
     protected abstract ChromeOptions createChromeOptions();
