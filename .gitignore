@@ -3,7 +3,8 @@ out/
 .idea/
 target/
 logs/
-.sh
+*.sh
+*.iml
 
 ### Mac OS ###
 .DS_Store.idea/
